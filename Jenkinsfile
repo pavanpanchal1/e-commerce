@@ -1,14 +1,16 @@
-
 pipeline {
     agent any
-    
+
     stages {
-        stage('Run PHP') {
+        stage('Run PHP Files') {
             steps {
-                sh 'php index.php'
-                
-                sh 'save_data.php'
-                
+                script {
+                    def files = ['index.php', 'register.php'] // List of PHP files to run
+
+                    for (def file in files) {
+                        sh "php ${file}"
+                    }
+                }
             }
         }
     }
